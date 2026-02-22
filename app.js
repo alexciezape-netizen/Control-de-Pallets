@@ -17,7 +17,7 @@ const CONFIG = {
   POWER_AUTOMATE_URL: "https://default95d411cfc2b44147a725de03841ecb.97.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d9653f4541cc4e739d3ba4d9c796a07b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=6RGeB1VW4jhFGsJiVDfmmoXQ49hYGDU9Doo_9yixeus",
 
   // Modo de prueba: si es true, no envía datos reales, solo muestra en consola
-  TEST_MODE: true,
+  TEST_MODE: false,
 };
 
 // ┌─────────────────────────────────────────────────────────┐

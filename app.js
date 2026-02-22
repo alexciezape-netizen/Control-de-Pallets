@@ -14,7 +14,7 @@
 // └─────────────────────────────────────────────────────────┘
 const CONFIG = {
   // Reemplaza esta URL con la del trigger HTTP de Power Automate
-  POWER_AUTOMATE_URL: "https://prod-XX.westus.logic.azure.com/workflows/TU_URL_AQUI",
+  POWER_AUTOMATE_URL: "https://default95d411cfc2b44147a725de03841ecb.97.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d9653f4541cc4e739d3ba4d9c796a07b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=6RGeB1VW4jhFGsJiVDfmmoXQ49hYGDU9Doo_9yixeus",
 
   // Modo de prueba: si es true, no envía datos reales, solo muestra en consola
   TEST_MODE: true,
@@ -24,14 +24,14 @@ const CONFIG = {
 // │  CAMPOS REQUERIDOS (para validación)                    │
 // └─────────────────────────────────────────────────────────┘
 const REQUIRED_FIELDS = [
-  { id: "responsable",  label: "Responsable" },
-  { id: "cdOrigen",     label: "CD Origen" },
-  { id: "cdDestino",    label: "CD Destino" },
-  { id: "cantidad",     label: "Cantidad" },
-  { id: "tipoPallet",   label: "Tipo de Pallet" },
-  { id: "nGRE",         label: "N° GRE" },
-  { id: "chofer",       label: "Chofer" },
-  { id: "placa",        label: "Placa" },
+  { id: "responsable", label: "Responsable" },
+  { id: "cdOrigen", label: "CD Origen" },
+  { id: "cdDestino", label: "CD Destino" },
+  { id: "cantidad", label: "Cantidad" },
+  { id: "tipoPallet", label: "Tipo de Pallet" },
+  { id: "nGRE", label: "N° GRE" },
+  { id: "chofer", label: "Chofer" },
+  { id: "placa", label: "Placa" },
 ];
 
 // ┌─────────────────────────────────────────────────────────┐
@@ -65,7 +65,7 @@ function getFormattedDateTime() {
  * @param {string} extraId  - ID del div extra-input
  */
 function toggleOtros(selectId, extraId) {
-  const sel   = document.getElementById(selectId);
+  const sel = document.getElementById(selectId);
   const extra = document.getElementById(extraId);
   if (sel.value === "OTROS") {
     extra.classList.add("visible");
@@ -85,24 +85,24 @@ function toggleOtros(selectId, extraId) {
  * La estructura coincide exactamente con las columnas del Excel.
  */
 function collectFormData() {
-  const origenRaw  = document.getElementById("cdOrigen").value;
+  const origenRaw = document.getElementById("cdOrigen").value;
   const destinoRaw = document.getElementById("cdDestino").value;
 
-  const origen  = origenRaw  === "OTROS" ? document.getElementById("origenOtrosInput").value.trim()  : origenRaw;
+  const origen = origenRaw === "OTROS" ? document.getElementById("origenOtrosInput").value.trim() : origenRaw;
   const destino = destinoRaw === "OTROS" ? document.getElementById("destinoOtrosInput").value.trim() : destinoRaw;
 
   return {
     // N° se genera automáticamente en Excel / Power Automate
-    Fecha:        getFormattedDateTime(),
-    Responsable:  document.getElementById("responsable").value.trim(),
-    Origen:       origen,
-    Destino:      destino,
-    Cantidad:     parseInt(document.getElementById("cantidad").value, 10),
-    TipoPallet:   document.getElementById("tipoPallet").value,
-    NGRE:         document.getElementById("nGRE").value.trim(),
-    NIntervega:   document.getElementById("nIntervega").value.trim() || "—",
-    Chofer:       document.getElementById("chofer").value.trim(),
-    Placa:        document.getElementById("placa").value.trim().toUpperCase(),
+    Fecha: getFormattedDateTime(),
+    Responsable: document.getElementById("responsable").value.trim(),
+    Origen: origen,
+    Destino: destino,
+    Cantidad: parseInt(document.getElementById("cantidad").value, 10),
+    TipoPallet: document.getElementById("tipoPallet").value,
+    NGRE: document.getElementById("nGRE").value.trim(),
+    NIntervega: document.getElementById("nIntervega").value.trim() || "—",
+    Chofer: document.getElementById("chofer").value.trim(),
+    Placa: document.getElementById("placa").value.trim().toUpperCase(),
     Observaciones: document.getElementById("observaciones").value.trim() || "Ninguna",
   };
 }
@@ -208,7 +208,7 @@ async function sendToPowerAutomate(data) {
 async function submitForm() {
   if (!validateForm()) return;
 
-  const data    = collectFormData();
+  const data = collectFormData();
   const overlay = document.getElementById("loadingOverlay");
   const btnSubmit = document.getElementById("btnSubmit");
 
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── Limpiar errores al escribir ──────────────────────────
   document.querySelectorAll("input, select, textarea").forEach((el) => {
-    el.addEventListener("input",  () => el.classList.remove("error-field"));
+    el.addEventListener("input", () => el.classList.remove("error-field"));
     el.addEventListener("change", () => el.classList.remove("error-field"));
   });
 

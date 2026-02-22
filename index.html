@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de Pallets</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════ HEADER -->
+  <div class="header">
+    <div class="header-meta">
+      <span class="meta-badge" id="dateDisplay"></span>
+    </div>
+    <div class="header-top">
+      <div>
+        <h1>Control de Pallets</h1>
+        <div class="header-subtitle">Registro y seguimiento de movimiento de pallets</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ CARD -->
+  <div class="card">
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast"></div>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+      <span>Registrando...</span>
+    </div>
+
+    <!-- ───── FORM CONTENT ───── -->
+    <div class="form-content" id="formContent">
+
+      <!-- SECCIÓN: Responsable -->
+      <div class="section-label">Responsable</div>
+      <div class="grid-1">
+        <div class="field">
+          <label>Responsable <span class="req">*</span></label>
+          <input type="text" id="responsable" placeholder="Nombre del responsable del registro" required>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Origen y Destino -->
+      <div class="section-label">Origen y Destino</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>CD Origen <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="cdOrigen" required>
+              <option value="" disabled selected hidden>Seleccionar...</option>
+              <option>CD NORTE</option>
+              <option>CD CENTRO</option>
+              <option>CD ESTE</option>
+              <option>CD NORTE CHICO</option>
+              <option>CD CV</option>
+              <option value="OTROS">OTROS</option>
+            </select>
+          </div>
+          <div class="extra-input" id="origenOtros">
+            <input type="text" placeholder="Especificar origen..." id="origenOtrosInput">
+          </div>
+        </div>
+        <div class="field">
+          <label>CD Destino <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="cdDestino" required>
+              <option value="" disabled selected hidden>Seleccionar...</option>
+              <option>CD NORTE</option>
+              <option>CD CENTRO</option>
+              <option>CD ESTE</option>
+              <option>CD NORTE CHICO</option>
+              <option>CD CV</option>
+              <option value="OTROS">OTROS</option>
+            </select>
+          </div>
+          <div class="extra-input" id="destinoOtros">
+            <input type="text" placeholder="Especificar destino..." id="destinoOtrosInput">
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Detalle Pallets -->
+      <div class="section-label">Detalle de Pallets</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Cantidad <span class="req">*</span></label>
+          <input type="number" id="cantidad" placeholder="0" min="1" required inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>Tipo de Pallet <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="tipoPallet" required>
+              <option value="" disabled selected hidden>Seleccionar...</option>
+              <option>EAN</option>
+              <option>CHEPP</option>
+              <option>NO EAN</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Documentación -->
+      <div class="section-label">Documentación</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>N° GRE <span class="req">*</span></label>
+          <input type="text" id="nGRE" placeholder="Guía de Remisión Electrónica" required>
+        </div>
+        <div class="field">
+          <label>N° G/Intervega</label>
+          <input type="text" id="nIntervega" placeholder="Número de guía Intervega">
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Transporte -->
+      <div class="section-label">Transporte</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Chofer <span class="req">*</span></label>
+          <input type="text" id="chofer" placeholder="Nombre del chofer" required>
+        </div>
+        <div class="field">
+          <label>Placa <span class="req">*</span></label>
+          <input type="text" id="placa" placeholder="Ej: ABC-123" required>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Observaciones -->
+      <div class="section-label">Adicional</div>
+      <div class="grid-1">
+        <div class="field">
+          <label>Observaciones</label>
+          <textarea id="observaciones"
+            placeholder="Ingrese cualquier observación relevante... (dejar en blanco si no hay)"></textarea>
+        </div>
+      </div>
+
+      <!-- BOTONES -->
+      <div class="submit-wrap">
+        <button class="btn-clear" type="button" id="btnClear">Limpiar</button>
+        <button class="btn-submit" type="button" id="btnSubmit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          Registrar Pallet
+        </button>
+      </div>
+
+    </div><!-- /form-content -->
+
+    <!-- ───── SUCCESS SCREEN ───── -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="11" stroke="#10b981" stroke-width="2" />
+          <path d="M7 12.5l3.5 3.5 6-7" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h2>¡Registro Exitoso!</h2>
+      <p>El movimiento de pallets ha sido registrado correctamente. Los datos se han enviado a Excel automáticamente.
+      </p>
+      <div class="success-details" id="successDetails"></div>
+      <button class="btn-home" id="btnHome">← Nuevo Registro</button>
+    </div>
+
+  </div><!-- /card -->
+
+  <div class="footer-note">Control de Pallets &middot; Sistema de Gestión Logística</div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
